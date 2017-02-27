@@ -7,7 +7,22 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
   end
 
+  get '/' do
+    erb :index
+  end
 
-  # get '/homepage'
+  get '/tweet/new' do
+    erb :'/tweets/create_tweet'
+  end
+
+  post '/tweet' do
+    erb :'tweets/show_tweet'
+  end
+
+  get '/tweet' do
+    redirect 
+  end
+
+
 
 end
