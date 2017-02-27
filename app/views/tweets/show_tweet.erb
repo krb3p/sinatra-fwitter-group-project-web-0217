@@ -6,4 +6,8 @@
   <input type="hidden" name="_method" value="patch">
   <input type="submit" id="Edit Tweet" value="Edit">
 </form>
-<input type="submit" id="Delete Tweet" value="Delete">
+
+<form method="POST" action="/tweets/<%=tweet.id%>">
+  <input type="hidden" name="_method" id="hidden" value="delete">
+  <input type="submit" id="Delete Tweet" value="Delete">
+</form>

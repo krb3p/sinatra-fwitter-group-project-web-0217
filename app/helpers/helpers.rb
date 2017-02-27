@@ -1,9 +1,9 @@
 class Helpers
   def self.current_user(sesh)
-    User.find(sesh[:user_id])
+    User.find(sesh[:id])
   end
 
   def self.is_logged_in?(sesh)
-    sesh.has_key?(:user_id)
+    sesh.has_key?(:id)
   end
 end

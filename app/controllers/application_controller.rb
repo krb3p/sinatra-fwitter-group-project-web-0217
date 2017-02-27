@@ -11,6 +11,28 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "password_security"
   end
 
+  get '/' do
+    erb :homepage
+  end
+
+  get '/signup' do
+    if Helpers.is_logged_in?(session)
+      redirect '/tweets'
+    else
+    erb :'/users/create_user'
+    end
+  end
+
+  post '/signup' do
+      if !params.values.any? {|v| v.empty?}
+        @user = User.create(params)
+        session[:id] = @user.id
+        redirect '/tweets'
+      else
+        redirect '/signup'
+      end
+  end
+
   get '/login' do
     if session[:id]
       redirect to '/tweets'
@@ -18,7 +40,6 @@ class ApplicationController < Sinatra::Base
       erb :'users/login'
     end
   end
-
 
   post '/login' do
     @user = User.find_by(username: params[:username])
@@ -54,8 +75,12 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/tweets' do
-    @user = User.find(session[:id])
-    erb :'tweets/tweets'
+    if session[:id]
+      @user = User.find(session[:id])
+      erb :'tweets/tweets'
+    else
+      redirect '/users/login'
+    end
   end
 
   get '/tweets/:id' do
@@ -82,6 +107,17 @@ class ApplicationController < Sinatra::Base
     else
       redirect to "/tweets/#{params[:id]}/edit"
     end
+  end
+
+  get '/users/:slug' do
+    @user = User.find_by_slug(params[:slug])
+
+    erb :'users/show'
+  end
+
+  get '/logout' do
+    session.clear
+    redirect '/user/login'
   end
 
 
