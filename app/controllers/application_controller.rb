@@ -1,21 +1,28 @@
 require './config/environment'
 
 class ApplicationController < Sinatra::Base
-  set :views, Proc.new { File.join(root, "../views/") }
+  # set :views, Proc.new { File.join(root, "../views/") }
+
 
   configure do
+    enable :sessions
     set :public_folder, 'public'
     set :views, 'app/views'
+    set :session_secret, "password_security"
   end
 
   get '/login' do
-    erb :'users/login'
+    if session[:id]
+      redirect to '/tweets'
+    else
+      erb :'users/login'
+    end
   end
 
   post '/login' do
     @user = User.find_by(username: params[:username])
-    binding.pry
-    riderect to '/tweets/tweets'
+    session[:id] = @user.id
+    redirect to '/tweets'
   end
   # get '/homepage'
   get '/' do
@@ -32,6 +39,11 @@ class ApplicationController < Sinatra::Base
 
   get '/tweet' do
     redirect
+  end
+
+  get '/tweets' do
+    @user = User.find(session[:id])
+    erb :'tweets/tweets'
   end
 
 
