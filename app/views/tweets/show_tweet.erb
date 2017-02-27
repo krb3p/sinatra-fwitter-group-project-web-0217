@@ -1,0 +1,9 @@
+<h2>Your Fweet Was Posted!</h2>
+
+<p><em><%=@tweet.content%></<em></p>
+  <p><%= @tweet.user.username %></p>
+<form class="" action="index.html" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <input type="submit" id="Edit Tweet" value="Edit">
+</form>
+<input type="submit" id="Delete Tweet" value="Delete">
