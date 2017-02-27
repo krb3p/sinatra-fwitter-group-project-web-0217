@@ -8,16 +8,15 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
   end
 
-<<<<<<< HEAD
   get '/login' do
     erb :'users/login'
   end
 
   post '/login' do
-    erb :'tweets/tweets'
+    # binding.pry
+    riderect to '/tweets/tweets'
   end
   # get '/homepage'
-=======
   get '/' do
     erb :index
   end
@@ -31,10 +30,8 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/tweet' do
-    redirect 
+    redirect
   end
 
-
->>>>>>> bd362e0f5828822fa8dbaa7da34c10fd7f11832d
 
 end
