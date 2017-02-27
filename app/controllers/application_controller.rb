@@ -11,17 +11,19 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
-  get '/tweet/new' do
+  get '/tweets/new' do
+
     erb :'/tweets/create_tweet'
   end
 
   post '/tweet' do
+    binding.pry
     erb :'tweets/show_tweet'
   end
 
-  get '/tweet' do
-    redirect 
-  end
+  # get '/tweet' do
+  #   redirect
+  # end
 
 
 
